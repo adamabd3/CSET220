@@ -5,6 +5,27 @@
 
     <body>
         <h1>Patient of Doctor:</h1>
-        <p>{{  }}</p>
+        <h2>{{ $patient->first_name }}</h2>
+        <p>{{ $currentDate }}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Comment</th>
+                    <th>Morning</th>
+                    <th>Afternoon</th>
+                    <th>Night</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($meds as $med)
+                    <tr>
+                        <td>{{ $med->comment }}</td>
+                        <td>{{ $med->med_morning ? 'Yes' : 'No' }}</td>
+                        <td>{{ $med->med_afternoon ? 'Yes' : 'No' }}</td>
+                        <td>{{ $med->med_night ? 'Yes' : 'No' }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </body>
 </html>

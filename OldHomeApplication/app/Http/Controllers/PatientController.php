@@ -14,5 +14,11 @@ class PatientController extends Controller
 
         $meds = Med::where('patient_id', $patient_id)
                     ->get();
+        
+        return view('patientOfDoctor', [
+            'patient' => $patient,
+            'meds' => $meds,
+            'currentDate' => now()->toDateString()
+        ]);
     }
 }
