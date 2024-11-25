@@ -11,3 +11,7 @@ Route::get('/new-roster', function () {
 Route::get('/employee_info', [empcontrol::class, 'index']);
 
 Route::get('/{patientId}/patientOfDoctor', [PatientController::class, 'medsForPatient']);
+
+Route::get('/', function() {
+    return view('register');
+});
