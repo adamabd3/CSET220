@@ -19,6 +19,5 @@ class employee extends Model
             "approved"
         ];
         public $timestamp = false;
-
         protected $primarykey = 'employee_id';
 }
