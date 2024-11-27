@@ -137,14 +137,6 @@
                     </form>
                 </div>
             @else
-                <div class="login-form">
-                    <form action="/login" method="POST">
-                        @csrf
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <button type="submit">Log In</button>
-                    </form>
-                </div>
             @endauth
         </div>
     </header>
