@@ -12,7 +12,7 @@
             margin: 0 150 0 150;
         }
         .search input{
-            width: 89%;
+            width: 29%;
             height: 30px;
         }
         .table{
@@ -44,14 +44,16 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            border: solid 5px black;
         }
     </style>
-    <body>
-        <div class="role">
-            <p>Role: <span>Admin/Supervisor/Caregiver/Doctor</span></p>
-            <p>Emp Id: <span>1</span></p>
-            <p style="color: gray;">Fix when registration and login are implemented</p>
+@extends('layouts.app')
+
+@section('title', 'Patient info')
+
+@section('content')
+<div class="role">
+            <p>Role: <span>{{ auth()->user()->role }}</span></p>
+            <p>Emp Id: <span>{{ auth()->user()->employee_id }}</span></p>
         </div>
 
         <div class="search">
@@ -93,5 +95,5 @@
                 </tbody>
             </table>
         </div>
-    </body>
-</html>
+        @endsection 
+    </html>

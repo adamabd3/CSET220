@@ -8,12 +8,17 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\patient_info;
 
 Route::get('/new-roster', function () {
     return view('newRoster');
 });
 
 Route::get('/employee_info', [empcontrol::class, 'index']);
+
+Route::middleware(['auth:patient'])->group(function () {
+    Route::get('/patient_info', [patient_info::class, 'index']);
+});
 
 Route::get('/{patientId}/patientOfDoctor', [PatientController::class, 'medsForPatient']);
 
