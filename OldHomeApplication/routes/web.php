@@ -15,8 +15,6 @@ Route::get('/new-roster', function () {
 
 Route::get('/employee_info', [empcontrol::class, 'index']);
 
-Route::get('/{patientId}/patientOfDoctor', [PatientController::class, 'medsForPatient']);
-
 //registration
 Route::get('/register', function () {
     return view('register');
@@ -42,6 +40,10 @@ Route::get('/patient-dashboard', [DashboardController::class, 'index'])->middlew
 Route::get('/admin/pending-accounts', [AdminController::class, 'pendingAccounts'])->name('admin.pending');
 Route::post('/admin/approve/{type}/{id}', [AdminController::class, 'approveAccount'])->name('admin.approve');
 Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])->name('admin.deny');
+
+
+//doctor
+Route::get('/doctor/patient', [PatientController::class, 'medsForPatient'])->name('doctor.patient')->middleware('auth:employees');
 
 
 // disregard for now
