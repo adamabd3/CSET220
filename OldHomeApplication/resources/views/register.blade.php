@@ -5,6 +5,13 @@
 @section('content')
     <div class="signup-form">
         <h2>Create an Account</h2>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <form action="{{ route('register') }}" method="POST">
             @csrf
             <label for="role">I am a:</label>
