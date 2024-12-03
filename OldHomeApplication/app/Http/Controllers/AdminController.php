@@ -25,7 +25,7 @@ class AdminController extends Controller
         $patient->approved = true;
         $patient->save();
     } elseif ($type === 'employee') {
-        $employee = Employee::findOrFail($id);
+        $employee = employee::findOrFail($id);
         $employee->approved = true;
         $employee->save();
     }
@@ -40,7 +40,7 @@ public function denyAccount($type, $id, Request $request)
         $patient->delete();
 
     } elseif ($type === 'employee') {
-        $employee = Employee::findOrFail($id);
+        $employee = employee::findOrFail($id);
         $employee->delete();
     }
 

@@ -22,5 +22,5 @@ class employee extends Model
         ];
         public $timestamp = false;
 
-        protected $primarykey = 'employee_id';
+        protected $primaryKey = 'employee_id';
 }

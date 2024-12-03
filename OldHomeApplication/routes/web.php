@@ -26,10 +26,9 @@ Route::post('/register', [registerController::class, 'store'])->name('register')
 // Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 // Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
-Route::get('/admin/pending-accounts', [AdminController::class, 'pendingAccounts'])->name('admin.approve');
+Route::get('/admin/pending-accounts', [AdminController::class, 'pendingAccounts'])->name('admin.pending');
+Route::post('/admin/approve/{type}/{id}', [AdminController::class, 'approveAccount'])->name('admin.approve');
 Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])->name('admin.deny');
-
-Route::post('/admin/approve-account/{type}/{id}', [AdminController::class, 'approveAccount']);
 
 Route::middleware(['auth', 'check.approval'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
