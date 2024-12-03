@@ -36,6 +36,7 @@ class registerController extends Controller
             'family_code' => $validated['family_code'],
             'emergency_contact' => $validated['emergency_contact'],
             'relation_to_contact' => $validated['relation_to_contact'],
+            'password' => $hashedPassword,
         ]);
     } else {
         employee::create([
