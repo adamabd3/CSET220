@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class employee extends Model
+class employee extends Authenticatable
 {
-        use HasFactory;
-        protected $table = "employees";
+    use Notifiable;
+        
+    protected $table = "employees";
         protected $fillable = [
             "employee_id",
             "first_name",
@@ -23,4 +24,24 @@ class employee extends Model
         public $timestamp = false;
 
         protected $primaryKey = 'employee_id';
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isSupervisor()
+    {
+        return $this->role === 'supervisor';
+    }
+
+    public function isDoctor()
+    {
+        return $this->role === 'doctor';
+    }
+
+    public function isCaregiver()
+    {
+        return $this->role === 'caregiver';
+    }
 }
