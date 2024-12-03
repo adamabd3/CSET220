@@ -19,7 +19,8 @@ class employee extends Authenticatable
             "password",
             "dob",
             "salary",
-            "approved"
+            "approved",
+            "role"
         ];
         public $timestamp = false;
 

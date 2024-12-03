@@ -46,7 +46,7 @@ Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])-
 
 // disregard for now
 Route::middleware(['auth:employees'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 })->name('home');
 

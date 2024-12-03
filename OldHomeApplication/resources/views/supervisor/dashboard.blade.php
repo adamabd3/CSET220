@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
+@section('title', 'Supervisor Dashboard')
+
 @section('content')
     <div class="container">
-        <h1>Patient Dashboard</h1>
-        <button class="btn btn-primary">Patient Action 1</button>
+        <h1>Supervisor Dashboard</h1>
+        <form action="{{ route('admin.pending') }}" method="GET">
+            @csrf
+            <button type="submit">Pending Accounts</button>
+        </form>
     </div>
 @endsection
