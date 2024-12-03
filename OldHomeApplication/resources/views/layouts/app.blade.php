@@ -25,7 +25,7 @@
 
         .header {
             background-color: #4267b2;
-            padding: 15px 0;
+            padding: 30px 0;
         }
 
         .header .login-form {
