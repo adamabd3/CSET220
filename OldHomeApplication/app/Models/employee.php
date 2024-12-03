@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class employee extends Model
+class employee extends Authenticatable
 {
-        protected $table = "employees";
+    use Notifiable;
+        
+    protected $table = "employees";
         protected $fillable = [
             "employee_id",
             "first_name",
@@ -19,5 +22,26 @@ class employee extends Model
             "approved"
         ];
         public $timestamp = false;
-        protected $primarykey = 'employee_id';
+
+        protected $primaryKey = 'employee_id';
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isSupervisor()
+    {
+        return $this->role === 'supervisor';
+    }
+
+    public function isDoctor()
+    {
+        return $this->role === 'doctor';
+    }
+
+    public function isCaregiver()
+    {
+        return $this->role === 'caregiver';
+    }
 }
