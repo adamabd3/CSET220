@@ -32,4 +32,19 @@ class AdminController extends Controller
 
     return redirect()->back()->with('success', ucfirst($type) . ' account approved successfully.');
 }
+
+public function denyAccount($type, $id, Request $request)
+{
+    if ($type === 'patient') {
+        $patient = Patient::findOrFail($id);
+        $patient->delete();
+
+    } elseif ($type === 'employee') {
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+    }
+
+    return redirect()->back()->with('success', ucfirst($type) . ' account denied successfully.');
 }
+}
+

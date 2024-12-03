@@ -17,7 +17,7 @@ return new class extends Migration
         $table->string('last_name', 50);
         $table->string('email', 70)->unique();
         $table->string('phone', 30);
-        $table->string('password', 50);
+        $table->string('password', 255);
         $table->date('dob');
         $table->string('family_code', 50);
         $table->string('emergency_contact', 100);

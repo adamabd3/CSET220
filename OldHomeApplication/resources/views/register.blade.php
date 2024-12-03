@@ -12,6 +12,16 @@
             </div>
         @endif
         
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('register') }}" method="POST">
             @csrf
             <label for="role">I am a:</label>
@@ -27,6 +37,7 @@
             <input type="email" name="email" placeholder="Email" required>
             <input type="tel" name="phone" placeholder="Phone Number" required>
             <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
             <input type="date" name="dob" placeholder="Date of Birth" required>
 
             <div id="patient-fields" style="display: none;">

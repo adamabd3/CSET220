@@ -22,9 +22,13 @@
                             <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
                             <td>{{ $patient->email }}</td>
                             <td>
-                                <form action="{{ route('admin.approve', ['type' => 'patient', 'id' => $patient->patient_id]) }}" method="POST">
+                                <form action="{{ route('admin.approve', ['type' => 'patient', 'id' => $patient->patient_id]) }}" method="POST" style="display:inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Approve</button>
+                                </form>
+                                <form action="{{ route('admin.deny', ['type' => 'patient', 'id' => $patient->patient_id]) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Deny</button>
                                 </form>
                             </td>
                         </tr>
@@ -53,9 +57,13 @@
                             <td>{{ $employee->email }}</td>
                             <td>{{ $employee->role }}</td>
                             <td>
-                                <form action="{{ route('admin.approve', ['type' => 'employee', 'id' => $employee->employee_id]) }}" method="POST">
+                                <form action="{{ route('admin.approve', ['type' => 'employee', 'id' => $employee->employee_id]) }}" method="POST" style="display:inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-success">Approve</button>
+                                </form>
+                                <form action="{{ route('admin.deny', ['type' => 'employee', 'id' => $employee->employee_id]) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Deny</button>
                                 </form>
                             </td>
                         </tr>
