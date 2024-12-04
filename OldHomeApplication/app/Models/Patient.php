@@ -27,4 +27,5 @@ class Patient extends Authenticatable
         'approved',
     ];
     public $timestamp = false;
+
 }

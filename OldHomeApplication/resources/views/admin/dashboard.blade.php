@@ -9,5 +9,8 @@
             @csrf
             <button type="submit">Pending Accounts</button>
         </form>
+        <form action="{{ route('patients.index') }}" method="GET">
+            <button type="submit">Edit Patient Accounts</button>
+        </form>
     </div>
 @endsection

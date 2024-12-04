@@ -8,6 +8,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
 
 Route::get('/new-roster', function () {
     return view('newRoster');
@@ -43,6 +44,12 @@ Route::get('/admin/pending-accounts', [AdminController::class, 'pendingAccounts'
 Route::post('/admin/approve/{type}/{id}', [AdminController::class, 'approveAccount'])->name('admin.approve');
 Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])->name('admin.deny');
 
+//Patient View
+Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
+Route::get('/patients/{patient_id}', function() {
+    return view('patient.edit');
+})->name('patients.edit');
+Route::put('/patients/{patient_id}/update', [PatientController::class, 'update'])->name('patients.update');
 
 // disregard for now
 Route::middleware(['auth:employees'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
