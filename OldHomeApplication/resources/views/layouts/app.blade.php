@@ -120,6 +120,14 @@
         .signup-form button:hover {
             background-color: #145dbf;
         }
+        a{
+            text-decoration: none;
+            color: white;
+            padding-left: 10px;
+        }
+        a:hover{
+            color: gray;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +139,8 @@
                         <!-- Display the user's name and current date -->
                         <p>Hello, {{ auth()->user()->first_name }}! Today is {{ \Carbon\Carbon::now()->toFormattedDateString() }}</p>
                     </div>
+                    <a href="/patient_info">Patient Info</a>
+                    <a href="/employee_info">Employee Info</a> 
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="logout-btn">Log Out</button>

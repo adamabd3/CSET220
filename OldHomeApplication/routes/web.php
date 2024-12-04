@@ -14,7 +14,9 @@ Route::get('/new-roster', function () {
     return view('newRoster');
 });
 
-Route::get('/employee_info', [empcontrol::class, 'index']);
+Route::middleware(['auth:employees'])->group(function () {
+    Route::any('/employee_info', [empcontrol::class, 'index']);
+});
 
 Route::middleware(['auth:employees'])->group(function () {
     Route::get('/patient_info', [patient_info::class, 'index']);
