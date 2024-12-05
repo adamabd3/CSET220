@@ -27,17 +27,31 @@
         @endforeach
     </tbody>
 </table>
+
 <h3>New Prescription:</h3>
-<form action="">
+<form action="{{ route('doctor.addMed', ['patientId' => $patient->patient_id]) }}" method="POST">
+    @csrf
     <label>Comment:</label>
-    <input><br>
+    <input type="text" name="comment" required><br>
+
     <label>Morning Med:</label>
-    <input><br>
+    <input type="checkbox" name="med_morning"><br>
+
     <label>Afternoon Med:</label>
-    <input><br>
+    <input type="checkbox" name="med_afternoon"><br>
+
     <label>Night Med:</label>
-    <input><br>
-    <button>Submit</button>
-    <button>Clear</button>
+    <input type="checkbox" name="med_night"><br>
+
+    <button type="submit">Submit</button>
+    <button type="reset">Clear</button>
 </form>
+
+
+<a href="{{ route('doctor.dashboard') }}" class="btn">Back to Dashboard</a>
+
+@if(session('success'))
+    <p style="color: green;">{{ session('success') }}</p>
+@endif
+
 @endsection

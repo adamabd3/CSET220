@@ -51,6 +51,7 @@ Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])-
 
 //doctor
 Route::get('/doctor/patient', [PatientController::class, 'medsForPatient'])->name('doctor.patient')->middleware('auth:employees');
+Route::post('/doctor/{patientId}/addMed', [PatientController::class, 'storeMed'])->name('doctor.addMed')->middleware('auth:employees');
 
 
 // disregard for now
