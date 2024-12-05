@@ -35,13 +35,13 @@
     <input type="text" name="comment" required><br>
 
     <label>Morning Med:</label>
-    <input type="checkbox" name="med_morning"><br>
-
+    <input type="checkbox" name="med_morning" value="1"><br>
+    
     <label>Afternoon Med:</label>
-    <input type="checkbox" name="med_afternoon"><br>
-
+    <input type="checkbox" name="med_afternoon" value="1"><br>
+    
     <label>Night Med:</label>
-    <input type="checkbox" name="med_night"><br>
+    <input type="checkbox" name="med_night" value="1"><br>
 
     <button type="submit">Submit</button>
     <button type="reset">Clear</button>

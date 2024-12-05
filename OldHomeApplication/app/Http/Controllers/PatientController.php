@@ -7,6 +7,7 @@ use App\Models\Med;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PatientController extends Controller
 {
@@ -36,10 +37,11 @@ class PatientController extends Controller
 
     public function storeMed(Request $request, $patientId)
     {
-
+        Log::info('storeMed called', $request->all());
+        
         $doctorId = Auth::guard('employees')->user()->employee_id;
 
-        $request->validate([
+        $validatedData = $request->validate([
             'comment' => 'required|string',
             'med_morning' => 'nullable|boolean',
             'med_afternoon' => 'nullable|boolean',
@@ -51,10 +53,12 @@ class PatientController extends Controller
             'doctor_id' => $doctorId,
             'date' => now(),
             'comment' => $request->input('comment'),
-            'med_morning' => $request->has('med_morning'),
-            'med_afternoon' => $request->has('med_afternoon'),
-            'med_night' => $request->has('med_night'),
+            'med_morning' => $request->boolean('med_morning'),   // Correctly handling boolean
+            'med_afternoon' => $request->boolean('med_afternoon'), // Correctly handling boolean
+            'med_night' => $request->boolean('med_night'),       // Correctly handling boolean
         ]);
+
+        Log::info('Prescription created successfully');
 
         return redirect()->back()->with('success', 'Prescription added successfully.');
     }

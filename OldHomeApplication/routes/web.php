@@ -8,6 +8,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\patient_info;
 
 Route::get('/new-roster', function () {
@@ -52,6 +53,8 @@ Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])-
 //doctor
 Route::get('/doctor/patient', [PatientController::class, 'medsForPatient'])->name('doctor.patient')->middleware('auth:employees');
 Route::post('/doctor/{patientId}/addMed', [PatientController::class, 'storeMed'])->name('doctor.addMed')->middleware('auth:employees');
+Route::get('/doctor/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard')->middleware('auth:employees');
+Route::get('/doctor/appointments/filter', [DoctorController::class, 'getUpcomingAppointments'])->name('doctor.appointments.filter');
 
 
 // disregard for now
