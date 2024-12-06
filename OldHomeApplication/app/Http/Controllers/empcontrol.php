@@ -47,7 +47,7 @@ class empcontrol extends Controller
         if ($Esearch) {
             $employee = employee::where('employee_id', 'like', '%' . $Esearch . '%')->get();
         } elseif ($Ssearch) {
-            $employee = employee::where('salary', '>', $Ssearch)->get();
+            $employee = employee::where('salary', $Ssearch)->get();
         } elseif ($Nsearch) {
             $employee = employee::where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', '%' . $Nsearch . '%')->get();
         } elseif ($Rsearch) {

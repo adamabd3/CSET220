@@ -43,11 +43,9 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        margin-bottom: 10px;
     }
 
-    button{
-        color: black;
-    }
 </style>
 @extends('layouts.app')
 
@@ -58,8 +56,8 @@
     
     <div class="role">
         <p>Role: <span>{{ auth()->user()->role }}</span></p><br>
-
-    </div>
+        <p>ID #: <span>{{ auth()->user()->employee_id }}</span></p>
+        </div>
     <div class="search">
         <form method="GET" action="{{ url('employee_info') }}">
             <input type="text" name="Esearch" placeholder="Search by Employee ID" value="{{ request('Esearch') }}">
@@ -71,12 +69,12 @@
             <input type="text" name="Psearch" placeholder="Search by Phone" value="{{ request('Psearch') }}">
             <button type="submit">Search</button>
             @if(auth()->user()->role == 'Admin')
-            <form method="GET" action="{{ url('employee_info') }}">
-                <button type="submit" name="edit_mode" value="{{ request('edit_mode') ? '0' : '1' }}">
-                    {{ request('edit_mode') ? 'Disable Edit Mode' : 'Enable Edit Mode' }}
-                </button>
-            </form>
-        @endif
+                <form method="GET" action="{{ url('employee_info') }}">
+                    <button type="submit" name="edit_mode" value="{{ request('edit_mode') ? '0' : '1' }}">
+                        {{ request('edit_mode') ? 'Disable Edit Mode' : 'Enable Edit Mode' }}
+                    </button>
+                </form>
+            @endif
         </form>
     </div>
     <div class="table">

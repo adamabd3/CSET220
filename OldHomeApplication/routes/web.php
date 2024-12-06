@@ -11,9 +11,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\patient_info;
 use App\Http\Controllers\RosterController;
 
-Route::get('/new-roster', function () {
-    return view('newRoster');
-});
+
+Route::post('/daily_roster/create', [RosterController::class, 'create'])->name('roster.create');
 
 Route::middleware(['auth:employees'])->group(function () {
     Route::any('/employee_info', [empcontrol::class, 'index']);
@@ -24,7 +23,7 @@ Route::middleware(['auth:employees'])->group(function () {
 });
 
 Route::middleware(['auth:employees'])->group(function () {
-    Route::get('/daily_roster', [RosterController::class, 'index']);
+    Route::any('/daily_roster', [RosterController::class, 'index']);
 });
 
 Route::get('/{patientId}/patientOfDoctor', [PatientController::class, 'medsForPatient']);
