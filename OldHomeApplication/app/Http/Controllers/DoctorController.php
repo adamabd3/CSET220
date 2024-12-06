@@ -13,10 +13,8 @@ class DoctorController extends Controller
     {
         $doctorId = Auth::guard('employees')->user()->employee_id;
 
-        // Get the selected filter date from the request, default to today if no date is provided
-        $filterDate = $request->input('filter_date', null); // Default to null to show all appointments
+        $filterDate = $request->input('filter_date', null);
 
-        // Get all past appointments
         $appointments = DB::table('appointments')
             ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
             ->join('meds', function ($join) use ($doctorId) {
@@ -24,7 +22,7 @@ class DoctorController extends Controller
                      ->where('meds.doctor_id', '=', $doctorId);
             })
             ->where('appointments.doctor_id', $doctorId)
-            ->whereDate('appointments.date', '<', now()) // Past appointments
+            ->whereDate('appointments.date', '<', now())
             ->select(
                 'patients.first_name',
                 'patients.last_name',
@@ -34,16 +32,14 @@ class DoctorController extends Controller
                 'meds.med_afternoon',
                 'meds.med_night'
             )
-            ->orderBy('appointments.date', 'desc') // Sort by the most recent first
+            ->orderBy('appointments.date', 'desc')
             ->get();
         
-        // For upcoming appointments:
-        // If no filter date is provided, show all upcoming appointments
         if (!$filterDate) {
             $upcomingAppointments = DB::table('appointments')
                 ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
                 ->where('appointments.doctor_id', $doctorId)
-                ->whereDate('appointments.date', '>', now()) // Only future appointments
+                ->whereDate('appointments.date', '>', now())
                 ->select(
                     'patients.first_name',
                     'patients.last_name',
@@ -51,14 +47,13 @@ class DoctorController extends Controller
                 )
                 ->get();
         } else {
-            // If a filter date is provided, show upcoming appointments until the selected date
             $filterDate = Carbon::parse($filterDate)->format('Y-m-d');
             
             $upcomingAppointments = DB::table('appointments')
                 ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
                 ->where('appointments.doctor_id', $doctorId)
-                ->whereDate('appointments.date', '>', now()) // Only future appointments
-                ->whereDate('appointments.date', '<=', $filterDate) // Filter by the selected date
+                ->whereDate('appointments.date', '>', now())
+                ->whereDate('appointments.date', '<=', $filterDate)
                 ->select(
                     'patients.first_name',
                     'patients.last_name',
@@ -70,7 +65,7 @@ class DoctorController extends Controller
         return view('doctor.dashboard', [
             'appointments' => $appointments,
             'upcomingAppointments' => $upcomingAppointments,
-            'filterDate' => $filterDate, // Send the filter date to the view to keep track of it
+            'filterDate' => $filterDate,
         ]);
     }
 }
