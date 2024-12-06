@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\FamilyLoginController;
 use App\Http\Controllers\patient_info;
 use App\Http\Controllers\RosterController;
@@ -72,6 +73,10 @@ Route::get('family-login', [FamilyLoginController::class, 'showFamilyLoginForm']
 Route::post('family-login', [FamilyLoginController::class, 'login']);
 Route::get('family-logout', [FamilyLoginController::class, 'logout'])->name('family-logout');
 Route::get('family-dashboard', [FamilyLoginController::class, 'index'])->name('family-dashboard');
+
+//Supervisor
+Route::get('/schedule-appointment', [SupervisorController::class, 'scheduleAppointment'])->name('supervisor.newAppointment');
+Route::post('/appointments/store', [SupervisorController::class, 'storeAppointment'])->name('appointments.store');
 
 //payments
 Route::get('/admin/payments', [AdminController::class, 'showPaymentsPage'])->name('admin.showPaymentsPage');
