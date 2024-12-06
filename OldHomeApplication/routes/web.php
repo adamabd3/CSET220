@@ -9,19 +9,32 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FamilyLoginController;
 use App\Http\Controllers\patient_info;
+use App\Http\Controllers\RosterController;
 
-Route::get('/new-roster', function () {
-    return view('newRoster');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+Route::post('/daily_roster/create', [RosterController::class, 'create'])->name('roster.create');
+
+Route::middleware(['auth:employees'])->group(function () {
+    Route::any('/employee_info', [empcontrol::class, 'index']);
 });
 
 Route::get('/employee_info', [empcontrol::class, 'index']);
-
 Route::middleware(['auth:employees'])->group(function () {
     Route::get('/patient_info', [patient_info::class, 'index']);
 });
 
+Route::middleware(['auth:employees'])->group(function () {
+    Route::any('/daily_roster', [RosterController::class, 'index']);
+});
+
 Route::get('/{patientId}/patientOfDoctor', [PatientController::class, 'medsForPatient']);
+
 
 //registration
 Route::get('/register', function () {
@@ -49,6 +62,20 @@ Route::get('/admin/pending-accounts', [AdminController::class, 'pendingAccounts'
 Route::post('/admin/approve/{type}/{id}', [AdminController::class, 'approveAccount'])->name('admin.approve');
 Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])->name('admin.deny');
 
+//Patient View
+Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
+Route::put('/patients/{patient_id}/update', [PatientController::class, 'update'])->name('patients.update');
+Route::get('/patients/{patient_id}/edit', [PatientController::class, 'edit'])->name('patients.edit');
+
+//Family Login
+Route::get('family-login', [FamilyLoginController::class, 'showFamilyLoginForm'])->name('family-login');
+Route::post('family-login', [FamilyLoginController::class, 'login']);
+Route::get('family-logout', [FamilyLoginController::class, 'logout'])->name('family-logout');
+Route::get('family-dashboard', [FamilyLoginController::class, 'index'])->name('family-dashboard');
+
+//payments
+Route::get('/admin/payments', [AdminController::class, 'showPaymentsPage'])->name('admin.showPaymentsPage');
+Route::post('/admin/payments/update', [AdminController::class, 'updatePayments'])->name('admin.updatePayments');
 
 //doctor
 Route::get('/doctor/patient', [PatientController::class, 'medsForPatient'])->name('doctor.patient')->middleware('auth:employees');
@@ -59,7 +86,7 @@ Route::get('/doctor/appointments/filter', [DoctorController::class, 'getUpcoming
 
 // disregard for now
 Route::middleware(['auth:employees'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 })->name('home');
 

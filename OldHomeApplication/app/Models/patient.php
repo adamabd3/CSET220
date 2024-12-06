@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class Patient extends Authenticatable
+class patient extends Model
 {
-    use Notifiable;
-    
-    protected $primaryKey = 'patient_id';
-    protected $table = "patients";
-
+    protected $table = 'patients';
     protected $fillable = [
+        'patient_id',
         'first_name',
         'last_name',
         'email',
@@ -24,7 +20,22 @@ class Patient extends Authenticatable
         'relation_to_contact',
         'group_number',
         'admission_date',
-        'approved',
+        'approved'
     ];
     public $timestamp = false;
+
+    public function appointments()
+{
+    return $this->hasMany(Appointment::class);
+}
+
+public function meds()
+{
+    return $this->hasMany(Med::class);
+}
+
+public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }

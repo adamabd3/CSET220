@@ -11,8 +11,13 @@ use Illuminate\Support\Facades\Log;
 
 class PatientController extends Controller
 {
-    public function medsForPatient(Request $request) {
-        $patient_id = $request->input('patient_id'); 
+    public function medsForPatient(Request $request, $patient_id = null)
+    {
+        $patient_id = $patient_id ?? $request->input('patient_id');
+
+        if (!$patient_id) {
+            return redirect()->back()->withErrors(['error' => 'Patient ID is required.']);
+        }
 
         $patient = Patient::findOrFail($patient_id);
 
@@ -25,14 +30,11 @@ class PatientController extends Controller
         ]);
     }
 
-
-    public function store(Request $request, $patient_id, $doctor_id) {
-        Med::create([
-            'patient_id' => $patient_id,
-            'doctor_id' => $doctor_id,
-            'date' => now(),
-            'comment' => $request->has('comment')
-        ]);
+    public function store(Request $request)
+    {
+        $validated = $this->validatePatient($request);
+        $patient = Patient::create($validated);
+        return response()->json($patient, 201);
     }
 
     public function storeMed(Request $request, $patientId)
@@ -53,13 +55,62 @@ class PatientController extends Controller
             'doctor_id' => $doctorId,
             'date' => now(),
             'comment' => $request->input('comment'),
-            'med_morning' => $request->boolean('med_morning'),   // Correctly handling boolean
-            'med_afternoon' => $request->boolean('med_afternoon'), // Correctly handling boolean
-            'med_night' => $request->boolean('med_night'),       // Correctly handling boolean
+            'med_morning' => $request->boolean('med_morning'),
+            'med_afternoon' => $request->boolean('med_afternoon'),
+            'med_night' => $request->boolean('med_night'),
         ]);
 
         Log::info('Prescription created successfully');
 
         return redirect()->back()->with('success', 'Prescription added successfully.');
+    }
+
+    public function index()
+    {
+        $patients = Patient::all();
+        return view('patient.index', compact('patients'));
+    }
+
+    public function show($id)
+    {
+        $patient = Patient::findOrFail($id);
+        return response()->json($patient);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $this->validatePatient($request);
+    
+        $patient = Patient::findOrFail($id);
+    
+        dd($patient);
+    
+        $patient->update($validated);
+    
+        dd("Patient updated!");
+    
+        return redirect()->route('patients.index')->with('success', 'Patient updated successfully!');
+    }
+
+    public function edit($id)
+    {
+        $patient = Patient::findOrFail($id);
+        return view('patient.edit', compact('patient'));
+    }
+
+    private function validatePatient(Request $request)
+    {
+        return $request->validate([
+            'patient_id' => 'required|integer',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'email' => 'required|email|max:70|unique:patients,email,' . $request->patient_id . ',patient_id',
+            'phone' => 'required|string|max:30',
+            'dob' => 'required|date',
+            'family_code' => 'required|string|max:50',
+            'emergency_contact' => 'required|string|max:100',
+            'relation_to_contact' => 'required|string|max:100',
+            'approved' => 'required|boolean',
+        ]);
     }
 }
