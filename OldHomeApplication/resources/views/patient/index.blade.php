@@ -37,7 +37,7 @@
                 <td>{{ $patient->admission_date }}</td>
                 <td>{{ $patient->approved ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ route('patients.edit', $patient->patient_id) }}" class="btn btn-warning">Edit</a>
+                    <a href="{{ route('patients.edit', ['id' => $patient->patient_id]) }}" class="btn btn-warning">Edit</a>
                 </td>
             </tr>
             @endforeach

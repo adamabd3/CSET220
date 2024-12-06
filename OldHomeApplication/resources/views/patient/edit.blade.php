@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <h1>Edit Patient</h1>
-
+    
     <form method="POST" action="{{ route('patients.update', $patient->patient_id) }}">
         @csrf
         @method('PUT')
@@ -47,7 +47,7 @@
 
         <div class="form-group">
             <label for="admission_date">Admission Date</label>
-            <input type="text" id="admission_date" name="admission_date" class="form-control" value="{{ old('admission_date', $patient->admission_date) }}" required>
+            <input type="date" id="admission_date" name="admission_date" class="form-control" value="{{ old('admission_date', $patient->admission_date) }}" required>
         </div>
 
         <div class="form-group">

@@ -9,6 +9,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FamilyLoginController;
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
 
 Route::get('/new-roster', function () {
     return view('newRoster');
@@ -46,10 +51,14 @@ Route::post('/admin/deny/{type}/{id}', [AdminController::class, 'denyAccount'])-
 
 //Patient View
 Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
-Route::get('/patients/{patient_id}', function() {
-    return view('patient.edit');
-})->name('patients.edit');
 Route::put('/patients/{patient_id}/update', [PatientController::class, 'update'])->name('patients.update');
+Route::get('/patients/{patient_id}/edit', [PatientController::class, 'edit'])->name('patients.edit');
+
+//Family Login
+Route::get('family-login', [FamilyLoginController::class, 'showFamilyLoginForm'])->name('family-login');
+Route::post('family-login', [FamilyLoginController::class, 'login']);
+Route::get('family-logout', [FamilyLoginController::class, 'logout'])->name('family-logout');
+Route::get('family-dashboard', [FamilyLoginController::class, 'index'])->name('family-dashboard');
 
 // disregard for now
 Route::middleware(['auth:employees'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

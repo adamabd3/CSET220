@@ -44,24 +44,38 @@ class PatientController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $this->validatePatient($request);
+    
         $patient = Patient::findOrFail($id);
+    
+        dd($patient);
+    
         $patient->update($validated);
-        return response()->json($patient);
+    
+        dd("Patient updated!");
+    
+        return redirect()->route('patients.index')->with('success', 'Patient updated successfully!');
     }
 
-    private function validatePatient(Request $request)
-    {
-        return $request->validate([
-            'patient_id' => 'required|integer',
-            'first_name' => 'required|string|max:50',
-            'last_name' => 'required|string|max:50',
-            'email' => 'required|email|max:70|unique:patients,email,' . $request->patient_id,
-            'phone' => 'required|string|max:30',
-            'dob' => 'required|date',
-            'family_code' => 'required|string|max:50',
-            'emergency_contact' => 'required|string|max:100',
-            'relation_to_contact' => 'required|string|max:100',
-            'approved' => 'required|boolean',
-        ]);
-    }
+
+    public function edit($id)
+{
+    $patient = Patient::findOrFail($id);
+    return view('patient.edit', compact('patient'));
+}
+
+private function validatePatient(Request $request)
+{
+    return $request->validate([
+        'patient_id' => 'required|integer',
+        'first_name' => 'required|string|max:50',
+        'last_name' => 'required|string|max:50',
+        'email' => 'required|email|max:70|unique:patients,email,' . $request->patient_id . ',patient_id',
+        'phone' => 'required|string|max:30',
+        'dob' => 'required|date',
+        'family_code' => 'required|string|max:50',
+        'emergency_contact' => 'required|string|max:100',
+        'relation_to_contact' => 'required|string|max:100',
+        'approved' => 'required|boolean',
+    ]);
+}
 }

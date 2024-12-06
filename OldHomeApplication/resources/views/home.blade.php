@@ -13,5 +13,8 @@
             @csrf
             <button type="submit">Register</button>
         </form>
+        <form action="{{ route('family-login') }}" method="GET">
+            <button type="submit">Family Log In</button>
+        </form>
     </div>
 @endsection
