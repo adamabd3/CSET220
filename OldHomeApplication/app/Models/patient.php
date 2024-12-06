@@ -28,4 +28,18 @@ class Patient extends Authenticatable
     ];
     public $timestamp = false;
 
+    public function appointments()
+{
+    return $this->hasMany(Appointment::class);
+}
+
+public function meds()
+{
+    return $this->hasMany(Med::class);
+}
+
+public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }

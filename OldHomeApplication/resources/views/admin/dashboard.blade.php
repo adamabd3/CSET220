@@ -12,5 +12,9 @@
         <form action="{{ route('patients.index') }}" method="GET">
             <button type="submit">Edit Patient Accounts</button>
         </form>
+        <form action="{{ route('admin.showPaymentsPage') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-primary">Payments</button>
+        </form>
     </div>
 @endsection

@@ -60,6 +60,10 @@ Route::post('family-login', [FamilyLoginController::class, 'login']);
 Route::get('family-logout', [FamilyLoginController::class, 'logout'])->name('family-logout');
 Route::get('family-dashboard', [FamilyLoginController::class, 'index'])->name('family-dashboard');
 
+//payments
+Route::get('/admin/payments', [AdminController::class, 'showPaymentsPage'])->name('admin.showPaymentsPage');
+Route::post('/admin/payments/update', [AdminController::class, 'updatePayments'])->name('admin.updatePayments');
+
 // disregard for now
 Route::middleware(['auth:employees'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/', function () {

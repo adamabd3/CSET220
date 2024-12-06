@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\employee;
+use App\Models\Payment;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -45,6 +47,50 @@ public function denyAccount($type, $id, Request $request)
     }
 
     return redirect()->back()->with('success', ucfirst($type) . ' account denied successfully.');
+}
+
+public function updatePayments()
+{
+    $today = Carbon::today();
+
+    $patients = Patient::with('appointments', 'medicines')->get();
+
+    foreach ($patients as $patient) {
+        $payment = Payment::where('patient_id', $patient->id)->first();
+
+        if (!$payment) {
+            $payment = new Payment();
+            $payment->patient_id = $patient->id;
+            $payment->total_due = 0;
+            $payment->last_update = $today;
+            $payment->save();
+        }
+
+        if ($payment->last_update != $today) {
+            $daysSinceLastUpdate = $today->diffInDays(Carbon::parse($payment->last_update));
+
+            $dailyCharge = $daysSinceLastUpdate * 10;
+
+            $appointmentCharge = $patient->appointments->count() * 50;
+
+            $medicineCharge = $patient->medicines->count() * 5;
+
+            $totalDue = $payment->total_due + $dailyCharge + $appointmentCharge + $medicineCharge;
+
+            $payment->total_due = $totalDue;
+            $payment->last_update = $today;
+            $payment->save();
+        }
+    }
+
+    return redirect()->back()->with('success', 'Payments updated successfully');
+}
+
+public function showPaymentsPage()
+{
+    $patients = Patient::with('payment')->get();
+
+    return view('admin.payments', compact('patients'));
 }
 }
 
