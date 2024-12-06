@@ -53,7 +53,7 @@
 @section('content')
 <div class="role">
             <p>Role: <span>{{ auth()->user()->role }}</span></p>
-            <p>Emp Id: <span>{{ auth()->user()->employee_id }}</span></p>
+            <p>ID #: <span>{{ auth()->user()->employee_id }}</span></p>
         </div>
 
         <div class="search">

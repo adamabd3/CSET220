@@ -10,18 +10,32 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FamilyLoginController;
+use App\Http\Controllers\patient_info;
+use App\Http\Controllers\RosterController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/new-roster', function () {
-    return view('newRoster');
+
+
+Route::post('/daily_roster/create', [RosterController::class, 'create'])->name('roster.create');
+
+Route::middleware(['auth:employees'])->group(function () {
+    Route::any('/employee_info', [empcontrol::class, 'index']);
 });
 
 Route::get('/employee_info', [empcontrol::class, 'index']);
+Route::middleware(['auth:employees'])->group(function () {
+    Route::get('/patient_info', [patient_info::class, 'index']);
+});
+
+Route::middleware(['auth:employees'])->group(function () {
+    Route::any('/daily_roster', [RosterController::class, 'index']);
+});
 
 Route::get('/{patientId}/patientOfDoctor', [PatientController::class, 'medsForPatient']);
+
 
 //registration
 Route::get('/register', function () {

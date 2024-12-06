@@ -10,7 +10,7 @@ class employee extends Authenticatable
     use Notifiable;
         
     protected $table = "employees";
-        protected $fillable = [
+    protected $fillable = [
             "employee_id",
             "first_name",
             "last_name",
