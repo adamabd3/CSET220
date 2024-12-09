@@ -8,6 +8,11 @@
         <form action="{{ route('admin.pending') }}" method="GET">
             @csrf
             <button type="submit">Pending Accounts</button>
-        </form>
+        </form><br>
+
+        <form action="{{ route('supervisor.newAppointment') }}" method="GET">
+            @csrf
+            <button type="submit">Schedule Appointment</button>
+        </form><br>
     </div>
 @endsection
