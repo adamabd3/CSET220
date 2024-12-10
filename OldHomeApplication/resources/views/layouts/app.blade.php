@@ -139,8 +139,13 @@
                         <!-- Display the user's name and current date -->
                         <p>Hello, {{ auth()->user()->first_name }}! Today is {{ \Carbon\Carbon::now()->toFormattedDateString() }}</p>
                     </div>
-                    <a href="/patient_info">Patient Info</a>
-                    <a href="/employee_info">Employee Info</a> 
+                    @if(auth()->user()->role == 'Admin')
+                        <a href="/patient_info">Patient Info</a>
+                        <a href="/employee_info">Employee Info</a> 
+                    @elseif(auth()->user()->role == 'Supervisor')
+                        <a href="/patient_info">Patient Info</a>
+                        <a href="/employee_info">Employee Info</a> 
+                    @endif
                     <a href="/daily_roster">Daily Roster</a> 
 
                     <form action="{{ route('logout') }}" method="POST">

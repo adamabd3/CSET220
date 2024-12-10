@@ -18,6 +18,10 @@
             <datalist id="doctors">
                 <option value="Dr. Nigel"></option>
             </datalist>
+
+            <button type="submit">Submit</button>
+
+            <button type="button" onclick="window.history.back()">Go Back</button>
         </form>
     </div>
 @endsection
