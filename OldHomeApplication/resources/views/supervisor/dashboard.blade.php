@@ -10,7 +10,7 @@
             <button type="submit">Pending Accounts</button>
         </form><br>
 
-        <form action="{{ route('supervisor.newAppointment') }}" method="GET">
+        <form action="{{ route('schedule-appointment') }}" method="GET">
             @csrf
             <button type="submit">Schedule Appointment</button>
         </form><br>

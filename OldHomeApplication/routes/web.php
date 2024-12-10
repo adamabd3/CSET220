@@ -74,7 +74,7 @@ Route::get('family-logout', [FamilyLoginController::class, 'logout'])->name('fam
 Route::get('family-dashboard', [FamilyLoginController::class, 'index'])->name('family-dashboard');
 
 //Supervisor
-Route::get('/schedule-appointment', [SupervisorController::class, 'scheduleAppointment'])->name('supervisor.newAppointment');
+Route::get('/schedule-appointment', [SupervisorController::class, 'scheduleAppointment'])->name('schedule-appointment');
 Route::post('/appointments/store', [SupervisorController::class, 'storeAppointment'])->name('appointments.store');
 
 //payments
@@ -84,7 +84,6 @@ Route::post('/admin/payments/update', [AdminController::class, 'updatePayments']
 //doctor
 Route::get('/doctor/patient', [PatientController::class, 'medsForPatient'])->name('doctor.patient')->middleware('auth:employees');
 Route::post('/doctor/{patientId}/addMed', [PatientController::class, 'storeMed'])->name('doctor.addMed')->middleware('auth:employees');
-Route::get('/doctor/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard')->middleware('auth:employees');
 Route::get('/doctor/appointments/filter', [DoctorController::class, 'getUpcomingAppointments'])->name('doctor.appointments.filter');
 
 
