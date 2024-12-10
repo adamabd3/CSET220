@@ -140,14 +140,25 @@
                         <p>Hello, {{ auth()->user()->first_name }}! Today is {{ \Carbon\Carbon::now()->toFormattedDateString() }}</p>
                     </div>
                     @if(auth()->user()->role == 'Admin')
+                        <a href="/admin-dashboard">Admin Home</a> 
                         <a href="/patient_info">Patient Info</a>
                         <a href="/employee_info">Employee Info</a> 
                     @elseif(auth()->user()->role == 'Supervisor')
+                        <a href="/supervisor-dashboard">Supervisor Home</a>
                         <a href="/patient_info">Patient Info</a>
                         <a href="/employee_info">Employee Info</a> 
+                    @elseif(auth()->user()->role == 'Doctor')
+                        <a href="/doctor/dashboard">Doctor Home</a> 
+                        <a href="/patient_info">Patient Info</a>
+                        <a href="/employee_info">Employee Info</a> 
+                    @elseif(auth()->user()->role == 'Caregiver')
+                        <a href="/caregiver-dashboard">Caregiver Home</a>
+                        <a href="/patient_info">Patient Info</a>
+                        <a href="/employee_info">Employee Info</a> 
+                    @else(auth()->user()->role == 'patient')
+                        <a href="/patient-dashboard">Patient Home</a>
                     @endif
                     <a href="/daily_roster">Daily Roster</a> 
-
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="logout-btn">Log Out</button>

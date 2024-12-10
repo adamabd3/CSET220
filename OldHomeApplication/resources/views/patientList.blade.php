@@ -20,7 +20,7 @@
         margin: 25px 0px;
         width: 780px;
         overflow: auto;
-        max-height: 300px;
+        max-height: 500px;
         margin-left: 200px;
         border: 5px solid blue;
         }
@@ -44,6 +44,10 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+        }
+        button{
+            height: 30px;
+            margin: 10px;
         }
     </style>
 @extends('layouts.app')
