@@ -52,14 +52,12 @@ public function denyAccount($type, $id, Request $request)
 public function updatePayments()
 {
     $today = Carbon::today();
-
     $patients = Patient::with('appointments', 'medicines')->get();
 
     foreach ($patients as $patient) {
-        $payment = Payment::where('patient_id', $patient->id)->first();
-
-        if (!$payment) {
-            $payment = new Payment();
+        $payment = $patient->payment ?: new Payment();
+        
+        if (!$payment->exists) {
             $payment->patient_id = $patient->id;
             $payment->total_due = 0;
             $payment->last_update = $today;
@@ -70,9 +68,7 @@ public function updatePayments()
             $daysSinceLastUpdate = $today->diffInDays(Carbon::parse($payment->last_update));
 
             $dailyCharge = $daysSinceLastUpdate * 10;
-
             $appointmentCharge = $patient->appointments->count() * 50;
-
             $medicineCharge = $patient->medicines->count() * 5;
 
             $totalDue = $payment->total_due + $dailyCharge + $appointmentCharge + $medicineCharge;

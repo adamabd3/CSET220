@@ -14,7 +14,6 @@
             <button type="submit" class="btn btn-sharp">Edit Patient Accounts</button>
         </form>
         <form action="{{ route('admin.showPaymentsPage') }}" method="GET">
-            @csrf
             <button type="submit" class="btn btn-sharp">Payments</button>
         </form>
     </div>

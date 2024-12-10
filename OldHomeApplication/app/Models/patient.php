@@ -25,10 +25,10 @@ class Patient extends Model
     ];
     public $timestamp = false;
 
-//     public function appointments()
-// {
-//     return $this->hasMany(Appointment::class);
-// }
+    public function appointments()
+{
+    return $this->hasMany(Appointment::class);
+}
 
 public function meds()
 {
