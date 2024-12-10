@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\patient;
+use App\Models\Patient;
 
 class patient_info extends Controller
 {
@@ -13,7 +13,7 @@ class patient_info extends Controller
         // $patients = patient::all();
         $search = $request->input('search');
         if ($search) {
-            $patients = patient::where('patient_id', 'like', '%' . $search . '%')->
+            $patients = Patient::where('patient_id', 'like', '%' . $search . '%')->
             orWhere('first_name', 'like', '%' . $search . '%')->
             orWhere('last_name', 'like', '%' . $search . '%')->
             orWhere('email', 'like', '%' . $search . '%')->
@@ -23,7 +23,7 @@ class patient_info extends Controller
             orWhere('relation_to_contact', 'like', '%' . $search . '%')->
             orWhere('phone', 'like', '%' . $search . '%')->get();
         } else {
-            $patients = patient::all();
+            $patients = Patient::all();
         }
         return view('patientList', compact('patients'));
     }}

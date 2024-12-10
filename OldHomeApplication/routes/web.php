@@ -32,7 +32,9 @@ Route::middleware(['auth:employees'])->group(function () {
 Route::middleware(['auth:employees'])->group(function () {
     Route::any('/daily_roster', [RosterController::class, 'index']);
 });
-
+Route::middleware(['auth:patients'])->group(function () {
+    Route::any('/daily_roster', [RosterController::class, 'index']);
+});
 Route::get('/{patientId}/patientOfDoctor', [PatientController::class, 'medsForPatient']);
 
 

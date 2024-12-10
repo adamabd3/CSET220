@@ -3,7 +3,81 @@
 @section('title', 'Edit Patient')
 
 @section('content')
-<div class="container">
+<style>
+.edit-patient {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.edit-patient h1 {
+    color: #333333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.edit-patient .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-patient label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.edit-patient .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.edit-patient .form-control:focus {
+    border-color: #4267b2;
+    box-shadow: 0 0 5px rgba(66, 103, 178, 0.5);
+}
+
+.btn {
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: 2px solid #4267b2;
+    background-color: #4267b2;
+    color: #ffffff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-submit:hover {
+    background-color: #365899;
+    border-color: #365899;
+    transform: scale(1.05);
+}
+
+.edit-patient input[type="checkbox"] {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.form-submit {
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+</style>
+<div class="container edit-patient">
     <h1>Edit Patient</h1>
     
     <form method="POST" action="{{ route('patients.update', $patient->patient_id) }}">
@@ -55,7 +129,7 @@
             <input type="checkbox" id="approved" name="approved" class="form-control" {{ $patient->approved ? 'checked' : '' }}>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Patient</button>
+        <button type="submit" class="btn btn-sharp btn-submit">Update Patient</button>
     </form>
 </div>
 @endsection
