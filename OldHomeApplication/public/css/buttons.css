@@ -1,0 +1,61 @@
+.btn {
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: 2px solid #4267b2;
+    background-color: #ffffff;
+    color: #4267b2;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 15px;
+}
+
+.btn-sharp {
+    border-radius: 0;
+}
+
+.btn-sharp:hover {
+    background-color: #4267b2;
+    color: #ffffff;
+    transform: scale(1.05);
+    border-color: #365899;
+}
+
+form:last-child .btn {
+    margin-bottom: 0;
+}
+
+.pending-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.pending-table th, .pending-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.pending-table th {
+    background-color: #4267b2;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.pending-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.pending-table tr:hover {
+    background-color: #e6efff;
+}
+
+.admin-pending-accounts form {
+    margin-right: 5px;
+    display: inline-block;
+}

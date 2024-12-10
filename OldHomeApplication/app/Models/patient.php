@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class patient extends Model
-{
+class Patient extends Model
+{   
+    protected $primaryKey = 'patient_id';
     protected $table = 'patients';
     protected $fillable = [
         'patient_id',
@@ -24,10 +25,10 @@ class patient extends Model
     ];
     public $timestamp = false;
 
-    public function appointments()
-{
-    return $this->hasMany(Appointment::class);
-}
+//     public function appointments()
+// {
+//     return $this->hasMany(Appointment::class);
+// }
 
 public function meds()
 {

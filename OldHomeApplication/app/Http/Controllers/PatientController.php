@@ -92,9 +92,9 @@ class PatientController extends Controller
         return redirect()->route('patients.index')->with('success', 'Patient updated successfully!');
     }
 
-    public function edit($id)
+    public function edit($patient_id)
     {
-        $patient = Patient::findOrFail($id);
+        $patient = Patient::findOrFail($patient_id);
         return view('patient.edit', compact('patient'));
     }
 
