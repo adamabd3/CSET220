@@ -4,7 +4,6 @@
 
 @section('content')
 <style>
-/* General container styling */
 .edit-patient {
     padding: 30px;
     max-width: 800px;
@@ -12,14 +11,12 @@
     text-align: left;
 }
 
-/* Page heading */
 .edit-patient h1 {
     color: #333333;
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-/* Form styling */
 .edit-patient .form-group {
     margin-bottom: 20px;
 }
@@ -41,13 +38,11 @@
     box-sizing: border-box;
 }
 
-/* Input focus state */
 .edit-patient .form-control:focus {
     border-color: #4267b2;
     box-shadow: 0 0 5px rgba(66, 103, 178, 0.5);
 }
 
-/* Button styling */
 .btn {
     font-family: 'Arial', sans-serif;
     font-size: 1rem;
@@ -64,20 +59,17 @@
     text-align: center;
 }
 
-/* Button hover effect */
 .btn-submit:hover {
     background-color: #365899;
     border-color: #365899;
     transform: scale(1.05);
 }
 
-/* Checkbox styling */
 .edit-patient input[type="checkbox"] {
     margin-top: 10px;
     margin-right: 10px;
 }
 
-/* Adding padding around the submit button */
 .form-submit {
     text-align: center;
     margin-top: 30px;
