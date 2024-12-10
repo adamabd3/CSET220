@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class patient extends Model
+class Patient extends Authenticatable
 {
+    use Notifiable;
+    protected $primaryKey = 'patient_id';
     protected $table = 'patients';
     protected $fillable = [
         'patient_id',
@@ -22,7 +25,7 @@ class patient extends Model
         'admission_date',
         'approved'
     ];
-    public $timestamp = false;
+    public $timestamps = false;
 
     public function appointments()
 {

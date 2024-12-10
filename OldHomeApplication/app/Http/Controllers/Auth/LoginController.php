@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\employee;
 use App\Models\Patient;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -64,7 +65,7 @@ class LoginController extends Controller
     } elseif ($employee->role === 'Caregiver') {
         return redirect()->route('caregiver.dashboard');
     } else {
-        \Log::warning("Unhandled role: {$employee->role}");
+        Log::warning("Unhandled role: {$employee->role}");
         return redirect()->route('login')->withErrors(['role' => 'Unauthorized role.']);
     }
 }
