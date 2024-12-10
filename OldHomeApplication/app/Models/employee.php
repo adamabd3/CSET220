@@ -47,4 +47,9 @@ class employee extends Authenticatable
     {
         return $this->role === 'caregiver';
     }
+
+    public function rosters()
+    {
+        return $this->hasMany(Roster::class, 'doctor_id');
+    }
 }
