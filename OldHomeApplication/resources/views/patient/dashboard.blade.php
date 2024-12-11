@@ -10,7 +10,8 @@
         <p><strong>Patient ID:</strong> {{ $patient_id }}</p>
         <p><strong>Doctor Name:</strong> {{ $doctor_name }}</p>
         <p><strong>Appointment on:</strong> {{ $appointment_date }} <br></p>
-
+        <br>
+        <h4>Ask your caregiver to update if needed</h4>
         <p><strong>Morning:</strong> <br>
         Morning Medicine: <input type="checkbox" disabled {{ $morning == 1 ? 'checked' : '' }}> 
         <br>
