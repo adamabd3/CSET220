@@ -3,7 +3,7 @@
 @section('title', 'New Appointment')
 
 @section('content')
-    <div class="container">
+    <div class="signup-form">
         <h1>New Appointment</h1>
         <form action="{{ route('appointments.store') }}" method="POST">
             @csrf
@@ -20,7 +20,7 @@
             </datalist>
 
             <button type="submit">Submit</button>
-
+            <br><br>
             <button type="button" onclick="window.history.back()">Go Back</button>
         </form>
     </div>     

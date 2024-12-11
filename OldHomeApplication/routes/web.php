@@ -54,7 +54,7 @@ Route::view('pending-approval', 'pending_approval')->name('pending_approval');
 //login redirect middleware
 Route::get('/admin-dashboard', [DashboardController::class, 'index'])->middleware('auth:employees')->name('admin.dashboard');
 Route::get('/supervisor-dashboard', [DashboardController::class, 'index'])->middleware('auth:employees')->name('supervisor.dashboard');
-Route::get('/doctor-dashboard', [DashboardController::class, 'index'])->middleware('auth:employees')->name('doctor.dashboard');
+Route::get('/doctor-dashboard', [DoctorController::class, 'dashboard'])->middleware('auth:employees')->name('doctor.dashboard');
 Route::get('/caregiver-dashboard', [DashboardController::class, 'index'])->middleware('auth:employees')->name('caregiver.dashboard');
 Route::get('/patient-dashboard', [DashboardController::class, 'index'])->middleware('auth:patients')->name('patient.dashboard');
 

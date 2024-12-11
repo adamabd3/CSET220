@@ -5,16 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class DoctorController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $doctorId = Auth::guard('employees')->user()->employee_id;
+        $doctorId = Auth::guard('employees')->user()->employee_id ?? null;
+
+        if (!$doctorId) {
+            abort(403, "Unauthorized access. Doctor not logged in.");
+        }
 
         $filterDate = $request->input('filter_date', null);
 
+        // Fetch past appointments
         $appointments = DB::table('appointments')
             ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
             ->join('meds', function ($join) use ($doctorId) {
@@ -34,33 +40,24 @@ class DoctorController extends Controller
             )
             ->orderBy('appointments.date', 'desc')
             ->get();
-        
-        if (!$filterDate) {
-            $upcomingAppointments = DB::table('appointments')
-                ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
-                ->where('appointments.doctor_id', $doctorId)
-                ->whereDate('appointments.date', '>', now())
-                ->select(
-                    'patients.first_name',
-                    'patients.last_name',
-                    'appointments.date'
-                )
-                ->get();
-        } else {
+
+        // Fetch upcoming appointments
+        $upcomingAppointmentsQuery = DB::table('appointments')
+            ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
+            ->where('appointments.doctor_id', $doctorId)
+            ->whereDate('appointments.date', '>', now())
+            ->select('patients.first_name', 'patients.last_name', 'appointments.date');
+
+        if ($filterDate) {
             $filterDate = Carbon::parse($filterDate)->format('Y-m-d');
-            
-            $upcomingAppointments = DB::table('appointments')
-                ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
-                ->where('appointments.doctor_id', $doctorId)
-                ->whereDate('appointments.date', '>', now())
-                ->whereDate('appointments.date', '<=', $filterDate)
-                ->select(
-                    'patients.first_name',
-                    'patients.last_name',
-                    'appointments.date'
-                )
-                ->get();
+            $upcomingAppointmentsQuery->whereDate('appointments.date', '<=', $filterDate);
         }
+
+        $upcomingAppointments = $upcomingAppointmentsQuery->get();
+
+        // Debugging outputs
+        Log::debug('Past Appointments:', ['appointments' => $appointments->toArray()]);
+        Log::debug('Upcoming Appointments:', ['upcomingAppointments' => $upcomingAppointments->toArray()]);
 
         return view('doctor.dashboard', [
             'appointments' => $appointments,
